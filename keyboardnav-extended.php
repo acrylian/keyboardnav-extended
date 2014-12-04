@@ -22,7 +22,7 @@
 $plugin_is_filter = 5 | THEME_PLUGIN;
 $plugin_description = gettext("Keyboard navigation for gallery/albums, images and Zenpage news item pages for the left/right arrows using jQuery.");
 $plugin_author = "Malte Müller (acrylian)";
-$plugin_version = '1.0';
+$plugin_version = '1.0.1';
 $option_interface = 'keyboardNavExtended';
 
 zp_register_filter('theme_body_close','keyboardNavExtended::keyBoardNavJS');
@@ -107,11 +107,11 @@ class keyboardNavExtended {
           						// handle cursor keys
           						if (event.keyCode === 37) {
           <?php if ($prevurl) { ?>
-            								document.location.href = '<?php echo htmlspecialchars($prevurl); ?>';
+            								document.location.href = '<?php echo htmlspecialchars_decode($prevurl); ?>';
           <?php } ?>
           						} else if (event.keyCode === 39) {
           <?php if ($nexturl) { ?>
-            								document.location.href = '<?php echo htmlspecialchars($nexturl); ?>';
+            								document.location.href = '<?php echo htmlspecialchars_decode($nexturl); ?>';
           <?php } ?>
           						}
           <?php if($_zp_gallery_page == 'image.php' && getOption('keyboardnav-extended_singleimage')) { ?>
