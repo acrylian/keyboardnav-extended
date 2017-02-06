@@ -22,7 +22,7 @@
 $plugin_is_filter = 5 | THEME_PLUGIN;
 $plugin_description = gettext("Keyboard navigation for gallery/albums, images and Zenpage news item pages for the left/right arrows using jQuery.");
 $plugin_author = "Malte Müller (acrylian)";
-$plugin_version = '1.0.1';
+$plugin_version = '1.0.2';
 $option_interface = 'keyboardNavExtended';
 
 zp_register_filter('theme_body_close','keyboardNavExtended::keyBoardNavJS');
@@ -32,6 +32,7 @@ class keyboardNavExtended {
 	function __construct() {
 		setOptionDefault('keyboardnav-extended_gallerypages', 1);
 		setOptionDefault('keyboardnav-extended_singleimage', 1);
+		setOptionDefault('keyboardnav-extended_singleimagealbumreturn', 1);
 		setOptionDefault('keyboardnav-extended_zenpagecategories', 1);
 		setOptionDefault('keyboardnav-extended_zenpagearticle', 1);
 	}
@@ -46,6 +47,10 @@ class keyboardNavExtended {
 				'key' => 'keyboardnav-extended_singleimage', 'type' => OPTION_TYPE_CHECKBOX,
 				'order'=>5,
 				'desc' => gettext('Enable the keyboard navigation the single image page (image.php).')),
+				gettext('Return to album') => array(
+				'key' => 'keyboardnav-extended_singleimagealbumreturn', 'type' => OPTION_TYPE_CHECKBOX,
+				'order'=>5,
+				'desc' => gettext('Enable up arrow to return to album view from single image page (image.php)')),
 				gettext('Zenpage categories') => array(
 				'key' => 'keyboardnav-extended_zenpagecategories', 'type' => OPTION_TYPE_CHECKBOX,
 				'order'=>5,
@@ -114,7 +119,7 @@ class keyboardNavExtended {
             								document.location.href = '<?php echo htmlspecialchars_decode($nexturl); ?>';
           <?php } ?>
           						}
-          <?php if($_zp_gallery_page == 'image.php' && getOption('keyboardnav-extended_singleimage')) { ?>
+          <?php if($_zp_gallery_page == 'image.php' && getOption('keyboardnav-extended_singleimage') && getOption('keyboardnav-extended_singleimagealbumreturn')) { ?>
               if (event.keyCode === 38) {
                 document.location.href = '<?php echo htmlspecialchars($_zp_current_album->getLink()); ?>';
               }
