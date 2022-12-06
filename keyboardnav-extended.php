@@ -22,7 +22,7 @@
 $plugin_is_filter = 5 | THEME_PLUGIN;
 $plugin_description = gettext("Keyboard navigation for gallery/albums, images and Zenpage news item pages for the left/right arrows using jQuery.");
 $plugin_author = "Malte Müller (acrylian)";
-$plugin_version = '1.0.2';
+$plugin_version = '1.1';
 $option_interface = 'keyboardNavExtended';
 
 zp_register_filter('theme_body_close','keyboardNavExtended::keyBoardNavJS');
